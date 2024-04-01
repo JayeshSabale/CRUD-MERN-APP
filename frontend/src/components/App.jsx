@@ -8,11 +8,15 @@ function App() {
   const [favoriteColor, setFavoriteColor] = useState('')
   const [usersData, setUsersData] = useState([])
   const [editUserId, setEditUserId] = useState(null)
+  const [isLoading, setIsLoading] = useState(true) // New state variable for loading indicator
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/api/user/get-all-entries')
-      .then((response) => setUsersData(response.data))
+      .get('https://crud-mern-app-2wzv.onrender.com/api/user/get-all-entries')
+      .then((response) => {
+        setUsersData(response.data)
+        setIsLoading(false) // Set loading to false when data is fetched
+      })
       .catch((error) => console.log(error))
   }, [])
 
@@ -21,11 +25,14 @@ function App() {
     if (editUserId) {
       // If editUserId is not null, update existing user
       axios
-        .put(`http://localhost:3001/api/user/update-entry/${editUserId}`, {
-          name,
-          hobby,
-          favoriteColor,
-        })
+        .put(
+          `https://crud-mern-app-2wzv.onrender.com/api/user/update-entry/${editUserId}`,
+          {
+            name,
+            hobby,
+            favoriteColor,
+          }
+        )
         .then((response) => {
           console.log(response)
           const updatedUsersData = usersData.map((user) =>
@@ -41,7 +48,7 @@ function App() {
     } else {
       // If editUserId is null, create new user
       axios
-        .post('http://localhost:3001/api/user/create-entry', {
+        .post('https://crud-mern-app-2wzv.onrender.com/api/user/create-entry', {
           name,
           hobby,
           favoriteColor,
@@ -69,7 +76,9 @@ function App() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:3001/api/user/delete-entry/${id}`)
+      .delete(
+        `https://crud-mern-app-2wzv.onrender.com/api/user/delete-entry/${id}`
+      )
       .then(() => {
         setUsersData(usersData.filter((user) => user._id !== id))
         // Reset input fields if the deleted user was being edited
@@ -147,49 +156,59 @@ function App() {
 
         <div className="registered-users">
           <h2>List of Users</h2>
-          {usersData.length === 0 ? (
-            <p className="no-user-message">No data found, please add some!</p>
+          {isLoading ? ( // Show loading indicator if data is still loading
+            <p style={{ textAlign: 'center' }}>Loading...</p>
           ) : (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Hobby</th>
-                  <th>Favorite Color</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usersData.map((user) => (
-                  <tr
-                    key={user._id}
-                    style={{
-                      backgroundColor: user.favoriteColor,
-                      color:
-                        user.favoriteColor === 'black' ? 'white' : 'inherit',
-                    }}
-                  >
-                    <td>{user.name}</td>
-                    <td>{user.hobby}</td>
-                    <td>{user.favoriteColor}</td>
-                    <td>
-                      <button
-                        className="btn btn-edit"
-                        onClick={() => handleEdit(user._id)}
+            <React.Fragment>
+              {usersData.length === 0 ? (
+                <p className="no-user-message">
+                  No data found, please add some!
+                </p>
+              ) : (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Hobby</th>
+                      <th>Favorite Color</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersData.map((user) => (
+                      <tr
+                        key={user._id}
+                        style={{
+                          backgroundColor: user.favoriteColor,
+                          color:
+                            user.favoriteColor === 'black'
+                              ? 'white'
+                              : 'inherit',
+                        }}
                       >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-delete"
-                        onClick={() => handleDelete(user._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        <td>{user.name}</td>
+                        <td>{user.hobby}</td>
+                        <td>{user.favoriteColor}</td>
+                        <td>
+                          <button
+                            className="btn btn-edit"
+                            onClick={() => handleEdit(user._id)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-delete"
+                            onClick={() => handleDelete(user._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </React.Fragment>
           )}
         </div>
       </div>
