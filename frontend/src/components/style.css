@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-inline: 4rem;
+}
+
+.registration-form {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.registration-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn-success {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.registered-users {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.registered-users h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.crud-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 36px;
+  color: #333; /* Change the color to your preference */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 2px solid #333; /* Add an underline */
+  padding-bottom: 10px; /* Adjust the spacing between text and underline */
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 4px; /* Increase bottom margin */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Add transition */
+}
+
+.btn-edit:hover {
+  background-color: #f8d7da;
+  color: #ffca28;
+}
+
+.no-user-message {
+  text-align: center;
+  font-style: italic;
+}
+
+.footer {
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin-inline: 1rem; /* Adjust margin for smaller screens */
+  }
+
+  .btn-edit {
+    margin-right: 5px;
+    margin-left: 0; /* Center the edit button */
+    margin-bottom: 5px; /* Increase bottom margin */
+  }
+}
